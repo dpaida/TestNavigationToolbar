@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Nhf-8q-hFf">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--New View Controller-->
+        <scene sceneID="ojv-02-zpG">
+            <objects>
+                <viewController id="Nhf-8q-hFf" customClass="NewViewController" customModule="TestNavigationToolbar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9OJ-Pj-7Kc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OLF-PE-iHq">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3i-mH-TIc">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="J1Z-c4-uPW"/>
+                                        </constraints>
+                                        <connections>
+                                            <segue destination="Rg9-yP-rAU" kind="embed" id="pj5-mL-ryj"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-u0-0Fp">
+                                        <rect key="frame" x="0.0" y="50" width="375" height="504"/>
+                                        <connections>
+                                            <segue destination="MF9-Ia-sqe" kind="embed" id="oXG-ml-EaZ"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eP7-14-KWG" firstAttribute="bottom" secondItem="OLF-PE-iHq" secondAttribute="bottom" id="R2q-la-HXY"/>
+                            <constraint firstItem="OLF-PE-iHq" firstAttribute="top" secondItem="eP7-14-KWG" secondAttribute="top" id="XZj-C0-4mo"/>
+                            <constraint firstItem="eP7-14-KWG" firstAttribute="trailing" secondItem="OLF-PE-iHq" secondAttribute="trailing" id="bD5-8Q-FkR"/>
+                            <constraint firstItem="OLF-PE-iHq" firstAttribute="leading" secondItem="eP7-14-KWG" secondAttribute="leading" id="kMw-cg-fPz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eP7-14-KWG"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z3y-OI-gWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3724" y="207"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="5Pl-hn-DTR">
+            <objects>
+                <viewController id="Rg9-yP-rAU" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9m9-vf-DUh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bIP-uD-CkI">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqc-FU-aQi">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <items>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="Xxb-Ui-MwN"/>
+                                            <barButtonItem title="Item" id="Ets-NA-dae">
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </barButtonItem>
+                                        </items>
+                                        <color key="barTintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </toolbar>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bIP-uD-CkI" firstAttribute="top" secondItem="9m9-vf-DUh" secondAttribute="top" id="Egi-dz-JNn"/>
+                            <constraint firstAttribute="bottom" secondItem="bIP-uD-CkI" secondAttribute="bottom" id="RXN-an-fX9"/>
+                            <constraint firstAttribute="trailing" secondItem="bIP-uD-CkI" secondAttribute="trailing" id="VjU-0f-36i"/>
+                            <constraint firstItem="bIP-uD-CkI" firstAttribute="leading" secondItem="9m9-vf-DUh" secondAttribute="leading" id="lzb-X7-zSV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="doR-Wf-QV7"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aE9-V8-epZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3772" y="887"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="5vx-9E-AvH">
+            <objects>
+                <viewController id="MF9-Ia-sqe" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zgk-Ld-7RP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ciU-dd-9s9">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="504"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the next view controller." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaJ-MK-qzo">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="504"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ciU-dd-9s9" firstAttribute="top" secondItem="Zgk-Ld-7RP" secondAttribute="top" id="C6M-s1-BFM"/>
+                            <constraint firstAttribute="bottom" secondItem="ciU-dd-9s9" secondAttribute="bottom" id="anA-2f-EvU"/>
+                            <constraint firstAttribute="trailing" secondItem="ciU-dd-9s9" secondAttribute="trailing" id="o0x-w2-WQg"/>
+                            <constraint firstItem="ciU-dd-9s9" firstAttribute="leading" secondItem="Zgk-Ld-7RP" secondAttribute="leading" id="x69-Kx-tg2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QNx-0K-Dhp"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qto-dh-ZOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4663" y="211"/>
+        </scene>
+    </scenes>
+</document>
