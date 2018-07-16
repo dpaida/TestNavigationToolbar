@@ -9,13 +9,21 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        guard let tabController = window?.rootViewController as? UITabBarController else { return true }
+        guard let splitController = tabController.childViewControllers[2] as? UISplitViewController else { return true }
+        guard let navController1 = splitController.childViewControllers.first as? UINavigationController else { return true }
+        guard let masterController = navController1.topViewController as? SplitMasterViewController else { return true }
+        guard let navController2 = splitController.childViewControllers.last as? UINavigationController else { return true }
+        guard let detailController = navController2.topViewController as? SplitDetailContainerViewController else { return true }
+        splitController.delegate = self
+        masterController.delegate = detailController
         return true
     }
 
@@ -41,6 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
 
 }
 

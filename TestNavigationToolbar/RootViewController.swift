@@ -18,10 +18,12 @@ protocol HideableHairlineViewController {
 extension HideableHairlineViewController where Self: UIViewController {
     
     func hideHairline() {
+        print("*** HAIRLINE hide = \(findHairline())")
         findHairline()?.isHidden = true
     }
     
     func showHairline() {
+        print("*** HAIRLINE show = \(findHairline())")
         findHairline()?.isHidden = false
     }
     
