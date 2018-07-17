@@ -18,7 +18,10 @@ protocol HideableHairlineViewController {
 extension HideableHairlineViewController where Self: UIViewController {
     
     func hideHairline() {
-        print("*** HAIRLINE hide = \(findHairline())")
+        if let navBar = findHairline()?.superview?.superview as? UINavigationBar {
+            print("*** HAIRLINE hide, navBar title = \(navBar.topItem?.title)")
+        }
+        print("*** HAIRLINE hide = \(findHairline()?.superview?.superview)")
         findHairline()?.isHidden = true
     }
     
@@ -31,7 +34,7 @@ extension HideableHairlineViewController where Self: UIViewController {
         return navigationController?.navigationBar.subviews
             .flatMap { $0.subviews }
             .flatMap { $0 as? UIImageView }
-            .filter { $0.bounds.size.width == self.navigationController?.navigationBar.bounds.size.width }
+            //.filter { $0.bounds.size.width == self.navigationController?.navigationBar.bounds.size.width }
             .filter { $0.bounds.size.height <= 2 }
             .first
     }

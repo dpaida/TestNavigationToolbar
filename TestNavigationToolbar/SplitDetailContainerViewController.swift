@@ -11,6 +11,12 @@ import UIKit
 class SplitDetailContainerViewController: UIViewController, ItemSelectionDelegate, HideableHairlineViewController {
 
     var detailController: SplitDetailViewController?
+    private var item: Item?
+    {
+        didSet {
+            self.detailController?.item = item
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +41,7 @@ class SplitDetailContainerViewController: UIViewController, ItemSelectionDelegat
     }
     
     func itemSelected(_ newItem: Item) {
-        self.detailController?.item = newItem
+        self.item = newItem
     }
 
     // MARK: - Navigation
@@ -50,6 +56,7 @@ class SplitDetailContainerViewController: UIViewController, ItemSelectionDelegat
         {
         case "EmbedDetail":
             let destController = segue.destination as! SplitDetailViewController
+            destController.item = self.item
             self.detailController = destController
         default:
             break

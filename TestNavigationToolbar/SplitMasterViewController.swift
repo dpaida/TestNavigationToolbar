@@ -63,7 +63,8 @@ class SplitMasterViewController: UITableViewController {
         delegate?.itemSelected(selectedItem)
         if let detailController = delegate as? SplitDetailContainerViewController
         {
-            self.splitViewController?.showDetailViewController(detailController.navigationController!, sender: nil)
+            //self.splitViewController?.showDetailViewController(detailController.navigationController!, sender: nil)
+            self.splitViewController?.showDetailViewController(detailController, sender: nil)
         }
     }
     /*

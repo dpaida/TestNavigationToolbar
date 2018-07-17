@@ -50,8 +50,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        print("*** COLLAPSE \(secondaryViewController) ONTO \(primaryViewController) = true")
+        /*
+        guard let secondaryVC = secondaryViewController as? UINavigationController else { return false }
+        secondaryVC.pushViewController(primaryViewController, animated: true)
+        */
         return true
     }
 
+    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+        print("*** SEPARATE FROM \(primaryViewController)")
+        if let child1 = splitViewController.childViewControllers.first { print("*** FIRST CHILD \(child1)") }
+        if let child2 = splitViewController.childViewControllers.last { print("*** SECOND CHILD \(child2)") }
+        let newSecondary = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as! DetailNavigationController
+        return newSecondary
+    }
+    
+    func primaryViewController(forExpanding splitViewController: UISplitViewController) -> UIViewController? {
+        print("*** SPLIT VIEW PRIMARY VC FOR EXPAND")
+        return nil
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, showDetail vc: UIViewController, sender: Any?) -> Bool {
+        print("*** SPLIT VIEW SHOW DETAIL")
+        return false
+    }
+    
+    /*
+    func primaryViewController(forCollapsing splitViewController: UISplitViewController) -> UIViewController? {
+        let defaultController = splitViewController.childViewControllers.last
+        print("*** DEFAULT VC FOR COLLAPSE = \(defaultController)")
+        guard let detailNavController = splitViewController.childViewControllers.last as? UINavigationController else { return defaultController }
+        guard let detailContainer = detailNavController.topViewController as? SplitDetailContainerViewController else { return defaultController }
+        print("*** PRIMARY VC FOR COLLAPSE = \(detailContainer)")
+        return detailContainer
+    }
+    */
 }
 

@@ -1,41 +1,27 @@
 //
-//  SplitDetailViewController.swift
+//  MasterNavigationController.swift
 //  TestNavigationToolbar
 //
-//  Created by Paida,Douglas on 7/16/18.
+//  Created by Paida,Douglas on 7/17/18.
 //  Copyright © 2018 Paida,Douglas. All rights reserved.
 //
 
 import UIKit
 
-class SplitDetailViewController: UIViewController {
+class MasterNavigationController: UINavigationController {
 
-    var item: Item?
-    {
-        didSet {
-            self.itemDescriptionLabel?.text = item?.description
-        }
-    }
-    
-    @IBOutlet weak var itemDescriptionLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.edgesForExtendedLayout = []
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.itemDescriptionLabel?.text = item?.description
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+
     /*
     // MARK: - Navigation
 
