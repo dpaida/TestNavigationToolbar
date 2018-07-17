@@ -13,6 +13,7 @@ class SplitDetailViewController: UIViewController {
     var item: Item?
     {
         didSet {
+            print("*** SPLIT DETAIL, item didSet")
             self.itemDescriptionLabel?.text = item?.description
         }
     }
@@ -27,6 +28,7 @@ class SplitDetailViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        print("*** SPLIT DETAIL, viewWillAppear")
         super.viewWillAppear(animated)
         self.itemDescriptionLabel?.text = item?.description
     }

@@ -127,10 +127,10 @@
 				24EC448220F612D700A7A947 /* Info.plist */,
 				24EC44A620F6167500A7A947 /* RootViewController.swift */,
 				24CBEE6D20F76AF300DBEB89 /* NewViewController.swift */,
-				24CB1D0220FCAD430074309F /* SplitMasterViewController.swift */,
-				24CB1D0420FCAD560074309F /* SplitDetailViewController.swift */,
 				24CB1D0620FCAE220074309F /* Item.swift */,
+				24CB1D0220FCAD430074309F /* SplitMasterViewController.swift */,
 				24CAB5A920FCC0A300C9F872 /* SplitDetailContainerViewController.swift */,
+				24CB1D0420FCAD560074309F /* SplitDetailViewController.swift */,
 				24662F7B20FE07960072AA95 /* MasterNavigationController.swift */,
 				24662F7D20FE07AA0072AA95 /* DetailNavigationController.swift */,
 			);

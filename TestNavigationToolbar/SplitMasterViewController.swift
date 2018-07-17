@@ -60,11 +60,20 @@ class SplitMasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = self.items[indexPath.row]
+        print("*** SPLIT MASTER, didSelect \(selectedItem)")
         delegate?.itemSelected(selectedItem)
         if let detailController = delegate as? SplitDetailContainerViewController
         {
             //self.splitViewController?.showDetailViewController(detailController.navigationController!, sender: nil)
-            self.splitViewController?.showDetailViewController(detailController, sender: nil)
+            print("*** SPLIT MASTER, didSelect - showDetail")
+            if self.splitViewController?.isCollapsed ?? false
+            {
+                self.splitViewController?.showDetailViewController(detailController, sender: nil)
+            }
+            else
+            {
+                self.splitViewController?.showDetailViewController(detailController.navigationController!, sender: nil)
+            }
         }
     }
     /*

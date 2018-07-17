@@ -19,14 +19,14 @@ extension HideableHairlineViewController where Self: UIViewController {
     
     func hideHairline() {
         if let navBar = findHairline()?.superview?.superview as? UINavigationBar {
-            print("*** HAIRLINE hide, navBar title = \(navBar.topItem?.title)")
+            //print("*** HAIRLINE hide, navBar title = \(navBar.topItem?.title)")
         }
-        print("*** HAIRLINE hide = \(findHairline()?.superview?.superview)")
+        //print("*** HAIRLINE hide = \(findHairline()?.superview?.superview)")
         findHairline()?.isHidden = true
     }
     
     func showHairline() {
-        print("*** HAIRLINE show = \(findHairline())")
+        //print("*** HAIRLINE show = \(findHairline())")
         findHairline()?.isHidden = false
     }
     

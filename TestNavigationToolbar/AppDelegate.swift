@@ -62,13 +62,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         print("*** SEPARATE FROM \(primaryViewController)")
         if let child1 = splitViewController.childViewControllers.first { print("*** FIRST CHILD \(child1)") }
         if let child2 = splitViewController.childViewControllers.last { print("*** SECOND CHILD \(child2)") }
-        let newSecondary = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as! DetailNavigationController
-        return newSecondary
+        
+        guard let masterNavController = splitViewController.childViewControllers.first as? MasterNavigationController else { return nil }
+        print("*** SEPARATE SECONDARY, obtained master nav, top = \(masterNavController.topViewController)")
+
+        //*** THIS IS CAUSING PROBLEM IN LANDSCAPE.  Detail side is under the master nav controller instead of detail nav controller.
+        if let detailController = masterNavController.topViewController as? SplitDetailContainerViewController
+        {
+            return detailController.navigationController
+            
+            /*
+            guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
+            masterNavController.popViewController(animated: false)
+            detailNavController.pushViewController(detailController, animated: true)
+            return detailNavController
+            */
+        }
+            
+        else if let masterController = masterNavController.topViewController as? SplitMasterViewController
+        {
+            guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
+            print("*** SEPARATE SECONDARY, instantiated detail nav")
+            guard let detailController = detailNavController.topViewController as? SplitDetailContainerViewController else { return nil }
+            print("*** SEPARATE SECONDARY, obtained detail container")
+            masterController.delegate = detailController
+            print("*** SEPARATE SECONDARY, returning detail nav controller")
+            return detailNavController
+        }
+        return nil
     }
     
     func primaryViewController(forExpanding splitViewController: UISplitViewController) -> UIViewController? {
         print("*** SPLIT VIEW PRIMARY VC FOR EXPAND")
-        return nil
+        guard let masterNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "MasterNavigationController") as? MasterNavigationController else { return nil }
+        return masterNavController
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, showDetail vc: UIViewController, sender: Any?) -> Bool {

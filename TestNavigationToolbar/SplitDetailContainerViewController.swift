@@ -41,6 +41,7 @@ class SplitDetailContainerViewController: UIViewController, ItemSelectionDelegat
     }
     
     func itemSelected(_ newItem: Item) {
+        print("*** SPLIT CONTAINER, itemSelected \(newItem.description)")
         self.item = newItem
     }
 
