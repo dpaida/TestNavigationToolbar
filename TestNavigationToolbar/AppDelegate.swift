@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
@@ -48,16 +48,71 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+ }
 
+extension AppDelegate: UISplitViewControllerDelegate
+{
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+        
+        guard let masterNavController = splitViewController.childViewControllers.first as? MasterNavigationController else { return nil }
+
+        if let detailController = masterNavController.topViewController as? SplitDetailContainerViewController
+        {
+             guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
+             masterNavController.popViewController(animated: false)
+             detailNavController.viewControllers = [detailController]
+             return detailNavController
+        }
+            
+        else if let masterController = masterNavController.topViewController as? SplitMasterViewController
+        {
+            guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
+            guard let detailController = detailNavController.topViewController as? SplitDetailContainerViewController else { return nil }
+            masterController.delegate = detailController
+            return detailNavController
+        }
+        return nil
+    }
+    
+    func primaryViewController(forExpanding splitViewController: UISplitViewController) -> UIViewController? {
+        guard let masterNavController = splitViewController.childViewControllers.first as? MasterNavigationController else { return nil }
+        return masterNavController
+    }
+    
+    /*
+    func splitViewController(_ splitViewController: UISplitViewController, showDetail vc: UIViewController, sender: Any?) -> Bool {
+        print("*** SPLIT VIEW SHOW DETAIL")
+        return false
+    }
+    */
+}
+
+/*
+extension AppDelegate: UISplitViewControllerDelegate
+{
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         print("*** COLLAPSE \(secondaryViewController) ONTO \(primaryViewController) = true")
         /*
-        guard let secondaryVC = secondaryViewController as? UINavigationController else { return false }
-        secondaryVC.pushViewController(primaryViewController, animated: true)
-        */
+         guard let secondaryVC = secondaryViewController as? UINavigationController else { return false }
+         secondaryVC.pushViewController(primaryViewController, animated: true)
+         */
         return true
     }
-
+    
+    /*
+     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+     print("*** SPLIT DELEGATE - collapse secondary onto primary")
+     if let primaryNav = primaryViewController as? UINavigationController, let secondaryNav = secondaryViewController as? UINavigationController {
+     primaryNav.viewControllers = primaryNav.viewControllers + secondaryNav.viewControllers
+     }
+     return true
+     }
+     */
+    
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
         print("*** SEPARATE FROM \(primaryViewController)")
         if let child1 = splitViewController.childViewControllers.first { print("*** FIRST CHILD \(child1)") }
@@ -65,36 +120,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         guard let masterNavController = splitViewController.childViewControllers.first as? MasterNavigationController else { return nil }
         print("*** SEPARATE SECONDARY, obtained master nav, top = \(masterNavController.topViewController)")
-
-        //*** THIS IS CAUSING PROBLEM IN LANDSCAPE.  Detail side is under the master nav controller instead of detail nav controller.
+        
+        //THIS IS CAUSING PROBLEM IN LANDSCAPE.  Detail side is under the master nav controller instead of detail nav controller.
         if let detailController = masterNavController.topViewController as? SplitDetailContainerViewController
         {
             return detailController.navigationController
-            
-            /*
-            guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
-            masterNavController.popViewController(animated: false)
-            detailNavController.pushViewController(detailController, animated: true)
-            return detailNavController
-            */
+        
+        /*
+         guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
+         masterNavController.popViewController(animated: false)
+         detailNavController.pushViewController(detailController, animated: true)
+         return detailNavController
+         */
         }
-            
+        
         else if let masterController = masterNavController.topViewController as? SplitMasterViewController
         {
-            guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
-            print("*** SEPARATE SECONDARY, instantiated detail nav")
-            guard let detailController = detailNavController.topViewController as? SplitDetailContainerViewController else { return nil }
-            print("*** SEPARATE SECONDARY, obtained detail container")
-            masterController.delegate = detailController
-            print("*** SEPARATE SECONDARY, returning detail nav controller")
-            return detailNavController
+        //guard let masterController = masterNavController.topViewController as? SplitMasterViewController else { return nil }
+        guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
+        print("*** SEPARATE SECONDARY, instantiated detail nav")
+        guard let detailController = detailNavController.topViewController as? SplitDetailContainerViewController else { return nil }
+        print("*** SEPARATE SECONDARY, obtained detail container")
+        masterController.delegate = detailController
+        print("*** SEPARATE SECONDARY, returning detail nav controller")
+        return detailNavController
         }
         return nil
     }
     
     func primaryViewController(forExpanding splitViewController: UISplitViewController) -> UIViewController? {
         print("*** SPLIT VIEW PRIMARY VC FOR EXPAND")
-        guard let masterNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "MasterNavigationController") as? MasterNavigationController else { return nil }
+        guard let masterNavController = splitViewController.childViewControllers.first as? MasterNavigationController else { return nil }
+        //guard let masterNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "MasterNavigationController") as? MasterNavigationController else { return nil }
         return masterNavController
     }
     
@@ -102,16 +159,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         print("*** SPLIT VIEW SHOW DETAIL")
         return false
     }
-    
     /*
-    func primaryViewController(forCollapsing splitViewController: UISplitViewController) -> UIViewController? {
-        let defaultController = splitViewController.childViewControllers.last
-        print("*** DEFAULT VC FOR COLLAPSE = \(defaultController)")
-        guard let detailNavController = splitViewController.childViewControllers.last as? UINavigationController else { return defaultController }
-        guard let detailContainer = detailNavController.topViewController as? SplitDetailContainerViewController else { return defaultController }
-        print("*** PRIMARY VC FOR COLLAPSE = \(detailContainer)")
-        return detailContainer
-    }
-    */
+     func primaryViewController(forCollapsing splitViewController: UISplitViewController) -> UIViewController? {
+     let defaultController = splitViewController.childViewControllers.last
+     print("*** DEFAULT VC FOR COLLAPSE = \(defaultController)")
+     guard let detailNavController = splitViewController.childViewControllers.last as? UINavigationController else { return defaultController }
+     guard let detailContainer = detailNavController.topViewController as? SplitDetailContainerViewController else { return defaultController }
+     print("*** PRIMARY VC FOR COLLAPSE = \(detailContainer)")
+     return detailContainer
+     }
+     */
 }
-
+*/
