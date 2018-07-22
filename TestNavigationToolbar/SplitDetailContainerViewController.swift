@@ -8,7 +8,11 @@
 
 import UIKit
 
-class SplitDetailContainerViewController: UIViewController, ItemSelectionDelegate, HideableHairlineViewController {
+class SplitDetailContainerViewController: UIViewController, SplitViewDetailDelegate, ItemSelectionDelegate, HideableHairlineViewController {
+    var noItemSelected: Bool
+    {
+        get { return self.item == nil }
+    }
 
     var detailController: SplitDetailViewController?
     private var item: Item?

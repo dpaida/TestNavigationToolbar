@@ -53,14 +53,14 @@
             <objects>
                 <viewController id="gXY-Ya-aLQ" customClass="SplitDetailViewController" customModule="TestNavigationToolbar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ChR-Ly-DCp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="460"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="553"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ow7-9D-fKG">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="460"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="533"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4J-MR-tpE">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="460"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="533"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -95,7 +95,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dwh-zD-kzN">
-                                <rect key="frame" x="0.0" y="44" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="623-4p-dQe">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -107,7 +107,7 @@
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I3G-5w-prl">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="460"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="553"/>
                                         <connections>
                                             <segue destination="gXY-Ya-aLQ" kind="embed" identifier="EmbedDetail" id="Rvt-Hq-Q6o"/>
                                         </connections>
@@ -163,6 +163,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Items" id="vb0-sz-5EJ"/>
+                    <connections>
+                        <segue destination="wQV-f7-X4o" kind="custom" identifier="showDetail" customClass="CustomDetailSegue" customModule="TestNavigationToolbar" customModuleProvider="target" id="Trc-3c-Shz"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fXe-Ta-6Ev" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -188,7 +191,7 @@
         <!--Split-->
         <scene sceneID="xvc-W3-qoS">
             <objects>
-                <splitViewController id="sW3-5R-tsf" sceneMemberID="viewController">
+                <splitViewController id="sW3-5R-tsf" customClass="ItemSplitViewController" customModule="TestNavigationToolbar" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Split" id="K0f-Ki-qwa"/>
                     <connections>
                         <segue destination="RjS-x4-Cs8" kind="relationship" relationship="masterViewController" id="JEf-PP-OVr"/>
@@ -402,4 +405,7 @@
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Trc-3c-Shz"/>
+    </inferredMetricsTieBreakers>
 </document>

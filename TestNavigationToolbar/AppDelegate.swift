@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        /*
         guard let tabController = window?.rootViewController as? UITabBarController else { return true }
         guard let splitController = tabController.childViewControllers[2] as? UISplitViewController else { return true }
         guard let navController1 = splitController.childViewControllers.first as? UINavigationController else { return true }
@@ -24,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let detailController = navController2.topViewController as? SplitDetailContainerViewController else { return true }
         splitController.delegate = self
         masterController.delegate = detailController
+        */
         return true
     }
 
@@ -50,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
  }
 
+/*
 extension AppDelegate: UISplitViewControllerDelegate
 {
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
@@ -90,6 +93,7 @@ extension AppDelegate: UISplitViewControllerDelegate
     }
     */
 }
+*/
 
 /*
 extension AppDelegate: UISplitViewControllerDelegate
