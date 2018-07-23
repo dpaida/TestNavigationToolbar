@@ -12,17 +12,32 @@ protocol SplitViewDetailDelegate: class {
     var noItemSelected: Bool { get }
 }
 
+extension UINavigationController {
+    override open func collapseSecondaryViewController(_ secondaryViewController: UIViewController, for splitViewController: UISplitViewController) {
+        print("*** MASTER NC: collapseSecondaryViewController, secondary VC = \(secondaryViewController)")
+        
+        guard let navController = secondaryViewController as? UINavigationController, let detailController = navController.topViewController, detailController is SplitViewDetailDelegate else {
+            super.collapseSecondaryViewController(secondaryViewController, for: splitViewController)
+            return
+        }
+        self.pushViewController(detailController, animated: false)
+        (detailController as? HideableHairlineViewController)?.hideHairline()
+    }
+}
+
 class ItemSplitViewController: UISplitViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        /*
         guard let navController1 = self.childViewControllers.first as? UINavigationController else { return }
         guard let masterController = navController1.topViewController as? SplitMasterViewController else { return }
         
         guard let navController2 = self.childViewControllers.last as? UINavigationController else { return }
         guard let detailController = navController2.topViewController as? SplitDetailContainerViewController else { return }
+        */
         
         self.delegate = self
     }
@@ -91,33 +106,15 @@ extension ItemSplitViewController: UISplitViewControllerDelegate
     
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
         print("*** SV DELEGATE: separateSecondaryFromPrimary")
-        guard let masterNavController = splitViewController.childViewControllers.first as? MasterNavigationController else { return nil }
-        
-        if let detailController = masterNavController.topViewController as? SplitDetailContainerViewController
+        guard let masterNavController = splitViewController.childViewControllers.first as? UINavigationController else { return nil }
+        guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? UINavigationController else { return nil }
+
+        if let detailController = masterNavController.topViewController, detailController is SplitViewDetailDelegate
         {
-            guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
             masterNavController.popViewController(animated: false)
             detailNavController.viewControllers = [detailController]
-            return detailNavController
         }
-            
-        else if let masterController = masterNavController.topViewController as? SplitMasterViewController
-        {
-            guard let detailNavController = splitViewController.storyboard?.instantiateViewController(withIdentifier: "DetailNavigationController") as? DetailNavigationController else { return nil }
-            guard let detailController = detailNavController.topViewController as? SplitDetailContainerViewController else { return nil }
-            return detailNavController
-        }
-        return nil
-    }
-    
-    func primaryViewController(forCollapsing splitViewController: UISplitViewController) -> UIViewController? {
-        print("*** SV DELEGATE: primaryViewController forCollapsing, splitViewController child VCs = \(splitViewController.childViewControllers)")
-        return nil        
-    }
-    
-    func primaryViewController(forExpanding splitViewController: UISplitViewController) -> UIViewController? {
-        print("*** SV DELEGATE: primaryViewController forExpanding")
-        guard let masterNavController = splitViewController.childViewControllers.first as? MasterNavigationController else { return nil }
-        return masterNavController
-    }
+        
+        return detailNavController
+    }    
 }

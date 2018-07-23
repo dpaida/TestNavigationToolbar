@@ -21,16 +21,19 @@ class MasterNavigationController: UINavigationController {
         // Dispose of any resources that can be recreated.
     }
     
+    /*
     override func collapseSecondaryViewController(_ secondaryViewController: UIViewController, for splitViewController: UISplitViewController) {
         print("*** MASTER NC: collapseSecondaryViewController, secondary VC = \(secondaryViewController)")
         
-        guard let navController = secondaryViewController as? DetailNavigationController, let detailController = navController.topViewController else {
+        guard let navController = secondaryViewController as? UINavigationController, let detailController = navController.topViewController, detailController is SplitViewDetailDelegate else {
             super.collapseSecondaryViewController(secondaryViewController, for: splitViewController)
             return
         }
         self.pushViewController(detailController, animated: false)
-        (detailController as? SplitDetailContainerViewController)?.hideHairline()
+        (detailController as? HideableHairlineViewController)?.hideHairline()
     }
+    */
+    
     /*
     // MARK: - Navigation
 
